@@ -7,14 +7,14 @@
 
 struct Name
 {
-	bool exists = false;
 	char* value = NULL;
+	bool exists = false;
 };
 
 struct Size
 {
-	bool exists = false;
 	int value = 0;
+	bool exists = false;
 };
 
 class Font
