@@ -69,7 +69,6 @@ void ComboBox::createComboBox(HWND m_hwnd, int x, int y, int width, int height, 
   }
   else
   {
-    printf("There's no elmenets!");
   }
 }
 
