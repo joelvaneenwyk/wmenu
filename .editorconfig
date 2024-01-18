@@ -10,8 +10,12 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[*.{cpp,hpp}]
+[*.{hpp,cpp}]
 indent_size = 2
+
+[*.{sln}]
+indent_size = 4
+indent_style = tab
 
 [*.{yaml,yml}]
 indent_size = 2
