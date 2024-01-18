@@ -4,11 +4,16 @@
 
 void Label::createLabel(HWND hwnd, int x, int y, int width, int height, char* fontName, std::wstring text)
 {
+#ifdef _x86
+  HINSTANCE hinstance = (HINSTANCE)GetWindowLong(hwnd, GWL_HINSTANCE);
+#else
+  HINSTANCE hinstance = (HINSTANCE)GetWindowLong(hwnd, GWLP_HINSTANCE);
+#endif
   HWND hwndPrompt = CreateWindow(L"static", NULL,
     WS_CHILD | WS_VISIBLE,
     x, y, width, height,
     hwnd, NULL,
-    (HINSTANCE) GetWindowLong (hwnd, GWL_HINSTANCE), NULL);
+    hinstance, NULL);
 
   if (Font::instance()->name.exists)
   {
