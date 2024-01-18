@@ -1,6 +1,12 @@
 #include "gui/gui.hpp"
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine, int iCmdShow)
+int WINAPI WinMain(
+    _In_ HINSTANCE hInstance,
+    _In_opt_ HINSTANCE hPrevInstance,
+    _In_ LPSTR lpCmdLine,
+    _In_ int nShowCmd)
 {
-  return Gui::instance()->initialize(hInstance, iCmdShow);
+  WMENU_PARAM_UNUSED(hPrevInstance);
+  WMENU_PARAM_UNUSED(lpCmdLine);
+  return Gui::instance()->initialize(hInstance, nShowCmd);
 }
