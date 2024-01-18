@@ -62,7 +62,7 @@ void ComboBox::createComboBox(HWND m_hwnd, int x, int y, int width, int height, 
     }
     SetWindowPos(m_hwnd, NULL,
       0, 0,
-      Prompt::instance()->exists ? width + Prompt::instance()->length * 8 : width,
+      Prompt::instance()->exists ? comboWidth + Prompt::instance()->length * 8 : comboWidth,
       comboHeight,
       NULL);
     SetFocus(hwnd);

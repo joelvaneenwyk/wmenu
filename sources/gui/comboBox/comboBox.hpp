@@ -42,7 +42,7 @@ public:
 
 	Items items;
 	HWND hwnd = NULL;
-	int hwnd_id = 3 ;
+	size_t hwnd_id = 3 ;
 	LineNumber lineNumber;
 	CaseSensitive caseSensitive ;
 

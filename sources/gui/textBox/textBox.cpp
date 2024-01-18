@@ -8,7 +8,7 @@
 #include "../../commandLine/options/font/font.hpp"
 
 HWND TextBox::hwnd = NULL;
-int TextBox::hwnd_id = 4;
+size_t TextBox::hwnd_id = 4;
 WNDPROC TextBox::window_proc = NULL;
 
 LRESULT CALLBACK TextBoxWindowHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -37,12 +37,17 @@ LRESULT CALLBACK TextBoxWindowHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM
   return CallWindowProc(TextBox::window_proc, hwnd, msg, wParam, lParam);
 }
 
-void TextBox::createTextBox(HWND hwnd, int x, int y, int width, int height, char* fontName)
+void TextBox::createTextBox(HWND hWndParent, int x, int y, int width, int height, char* fontName)
 {
-   HWND hwndTextBox = CreateWindow(WC_EDIT, L"",
-     WS_BORDER | WS_CHILD | WS_VISIBLE | WS_VISIBLE | ES_WANTRETURN,
-     x, y, width, height,
-     hwnd, (HMENU)hwnd_id, NULL, NULL);
+  HWND hwndTextBox = CreateWindow(
+      WC_EDIT, 
+      L"",
+      WS_BORDER | WS_CHILD | WS_VISIBLE | WS_VISIBLE | ES_WANTRETURN,
+      x, y, width, height,
+      hWndParent,
+      reinterpret_cast<HMENU>(hwnd_id), 
+      NULL, 
+      NULL);
 
   if (Font::instance()->name.exists)
   {

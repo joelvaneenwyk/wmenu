@@ -3,6 +3,7 @@
 
 #include <mutex>
 #include <atomic>
+#include <string>
 
 class Prompt
 {
@@ -13,7 +14,7 @@ public:
 
 	bool exists = false;
 	std::wstring value;
-	size_t length = 0;
+	int length = 0;
 
 private:
 	static std::recursive_mutex m_mutex;

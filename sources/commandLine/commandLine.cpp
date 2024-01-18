@@ -66,7 +66,7 @@ int CommandLine::parseArguments()
     {
       Prompt::instance()->exists = true;
       Prompt::instance()->value = Util::stringToWString(argv[i + 1]);
-      Prompt::instance()->length = Prompt::instance()->value.length();
+      Prompt::instance()->length = static_cast<int>(Prompt::instance()->value.length());
     }
     else if (0 == strcmp(argv[i], "-caseInsensitive"))
     {

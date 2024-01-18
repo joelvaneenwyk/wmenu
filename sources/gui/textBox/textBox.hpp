@@ -9,10 +9,10 @@ class TextBox
 {
 public:
 	static HWND hwnd;
-	static int hwnd_id;
+	static size_t hwnd_id;
 	static WNDPROC window_proc;
 
-	static void createTextBox(HWND hwnd, int x, int y, int width, int height, char* fontName);
+	static void createTextBox(HWND hWndParent, int x, int y, int width, int height, char* fontName);
 };
 
 #endif
