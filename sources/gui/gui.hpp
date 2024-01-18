@@ -6,6 +6,14 @@
 #include <mutex>
 #include <atomic>
 
+#if (__GNUC__ > 2) || (__GNUC__ == 2 && __GNUC_MINOR__ > 4)
+#       define WMENU_PARAM_ATTR_UNUSED(param_name)         __attribute__((__unused__))       param_name
+#else
+#       define WMENU_PARAM_ATTR_UNUSED(param_name)         __pragma(warning(suppress:4100))  param_name
+#endif
+
+#define WMENU_PARAM_UNUSED(param_name) (void)(param_name)
+
 #include "label/label.hpp"
 #include "textBox/textBox.hpp"
 #include "comboBox/comboBox.hpp"
@@ -29,13 +37,13 @@ public:
 
 	friend LRESULT CALLBACK WindowHandler(HWND, UINT, WPARAM, LPARAM, Gui&);
 
-	bool isRunningCheck();
+	bool isRunningCheck() const;
 
 	void setupGui(HWND hwnd);
 
-	HWND hwnd;
-	int width;
-	int height;
+	HWND hwnd = NULL;
+	int width = -1;
+	int height = -1;
 
 	std::wstring name;
 	std::string version;

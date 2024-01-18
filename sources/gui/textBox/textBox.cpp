@@ -21,7 +21,7 @@ LRESULT CALLBACK TextBoxWindowHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM
     {
     case VK_RETURN:
     {
-      wchar_t buf[256];
+      wchar_t buf[256]{};
       SendMessage(hwnd, (UINT)EM_GETLINE, (WPARAM)0, (LPARAM)buf);
       printf("%ls", buf);
       SendMessage(hwnd, WM_CLOSE, 0, 0);

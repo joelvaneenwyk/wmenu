@@ -2,6 +2,8 @@
 
 #include <sstream>
 #include <iostream>
+#include <locale>
+#include <codecvt>
 
 #include "../util/util.hpp"
 #include "../commandLine/commandLine.hpp"
@@ -30,18 +32,11 @@ Gui* Gui::instance()
 	return object;
 }
 
-bool Gui::isRunningCheck() {
-  std::wstring suffix = L"_Mutex";
-  std::wstring fullName = name + suffix;
-  HANDLE Mutex = CreateMutex(NULL, FALSE, fullName.c_str());
-  if (ERROR_ALREADY_EXISTS == GetLastError())
-  {
-    return true;
-  }
-  else
-  {
-    return false;
-  }
+bool Gui::isRunningCheck() const {
+  const std::wstring suffix = L"_Mutex";
+  const std::wstring fullName = name + suffix;
+  /* HANDLE Mutex = */ CreateMutex(NULL, FALSE, fullName.c_str());
+  return (ERROR_ALREADY_EXISTS == GetLastError());
 }
 
 void Gui::setupGui(HWND m_hwnd)
@@ -118,8 +113,9 @@ void Gui::setupGui(HWND m_hwnd)
 
 LRESULT CALLBACK WindowHandler(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam, Gui& gui)
 {
-  HDC hdc;
-  PAINTSTRUCT ps;
+  WMENU_PARAM_UNUSED(gui);
+
+  PAINTSTRUCT ps = {};
   switch (message)
   {
   case WM_ACTIVATE:
@@ -135,7 +131,7 @@ LRESULT CALLBACK WindowHandler(HWND hWnd, UINT message, WPARAM wParam, LPARAM lP
   } break;
   case WM_PAINT:
   {
-    hdc = BeginPaint(hWnd, &ps);
+    /*HDC hdc =*/ BeginPaint(hWnd, &ps);
     EndPaint(hWnd, &ps);
     return 0;
   } break;
@@ -147,7 +143,7 @@ LRESULT CALLBACK WindowHandler(HWND hWnd, UINT message, WPARAM wParam, LPARAM lP
       {
         HWND hcombo = (HWND)lParam;
         LRESULT index = SendMessageW(hcombo, CB_GETCURSEL, (WPARAM)0, (LPARAM)0);
-        wchar_t buf[256];
+        wchar_t buf[256]{};
         SendMessageW(hcombo, (UINT)CB_GETLBTEXT, (WPARAM)index, (LPARAM)buf);
         printf("%ls", buf);
         SendMessage(hWnd, WM_CLOSE, 0, 0);
@@ -155,11 +151,13 @@ LRESULT CALLBACK WindowHandler(HWND hWnd, UINT message, WPARAM wParam, LPARAM lP
     }
     if (HIWORD(wParam) == CBN_EDITUPDATE)
     {
-      static WCHAR str[128];
       if (LOWORD(wParam) == ComboBox::instance()->hwnd_id)
       {
-        HWND hcombo = (HWND)lParam;
-        GetWindowText(hcombo, str, 128);
+        HWND hcombo = (HWND)lParam; 
+        std::wstring title;
+        title.reserve(GetWindowTextLength(hcombo) + 1);
+        GetWindowText(hcombo, const_cast<WCHAR*>(title.c_str()), static_cast<int>(title.capacity()));
+
         std::vector<std::string> _tempList;
         //ComboBox_SelectString(hwndComboBox, 0, L"sa");
 
@@ -171,8 +169,9 @@ LRESULT CALLBACK WindowHandler(HWND hWnd, UINT message, WPARAM wParam, LPARAM lP
           SendMessageW(ComboBox::instance()->hwnd, CB_DELETESTRING, 0, (LPARAM)sw);
 
           // Add new items to vector
-          std::wstring ws(str);
-          std::string test(ws.begin(), ws.end());
+          using convert_typeX = std::codecvt_utf8<wchar_t>;
+          std::wstring_convert<convert_typeX, wchar_t> converterX;
+          std::string test = converterX.to_bytes(title);
 
           size_t pos = 0;
           if (!ComboBox::instance()->caseSensitive.exists)
@@ -310,7 +309,7 @@ int Gui::initialize(const HINSTANCE hInstance, int iCmdShow)
       } break;
       }
     }
-    Result = msg.wParam;
+    Result = static_cast<INT>(msg.wParam);
   }
   return Result;
 }
