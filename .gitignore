@@ -1,11 +1,20 @@
-*.*user
-/.vs/*
-/garbage
-/build/msvc/LastCoverageResults.log
-/build/msvc/.opencppcov/*
-/build/output
-/build/msvc/.vs
-/build/msvc/x64
-/build/msvc/Debug
-/build/msvc/Release
-/build/msvc/wmenu.vcxproj.user
+#
+# Ignore file for 'wmenu' project
+#
+
+garbage/
+.sarif/
+
+# Visual Studio intermediate files
+.vs/
+build/msvc/*.log
+build/msvc/.opencppcov/*
+build/output/
+build/msvc/.vs/
+build/msvc/x64/
+build/msvc/Debug/
+build/msvc/Release/
+*.vcxproj.user
+
+# CMake intermediate files
+cmake-build-*/
