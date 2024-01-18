@@ -6,7 +6,6 @@
 
 class Util {
 public:
-	static LPWSTR charPtrToLpcwstr(const char* source);
 	static std::wstring stringToWString(const std::string& str);
 	static std::wstring stringToLpcwstr(std::string source);
 	static void setFont(HWND hwnd, char* fontName, int height, int width);

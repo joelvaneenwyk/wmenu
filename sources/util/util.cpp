@@ -5,14 +5,6 @@
 
 #pragma warning(disable: 4996)
 
-LPWSTR Util::charPtrToLpcwstr(const char* source)
-{
-  wchar_t wtext[500];
-  mbstowcs(wtext, source, strlen(source) + 1);
-  LPWSTR ptr = wtext;
-  return ptr;
-}
-
 std::wstring Util::stringToLpcwstr(std::string source)
 {
   std::wstring temp = std::wstring(source.begin(), source.end());
