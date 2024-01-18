@@ -43,6 +43,7 @@
     <None Include="..\..\TODO.md">
       <Filter>docs</Filter>
     </None>
+    <None Include="..\..\.editorconfig" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\sources\util\util.hpp">
