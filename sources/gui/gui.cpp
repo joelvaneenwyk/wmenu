@@ -8,7 +8,7 @@
 #include "../commandLine/options/prompt/prompt.hpp"
 
 std::recursive_mutex Gui::m_mutex;
-std::atomic<Gui*> Gui::m_gui = nullptr;
+std::atomic<Gui*> Gui::m_gui = { 0 };
 
 Gui::~Gui() {}
 

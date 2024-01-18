@@ -1,7 +1,7 @@
 #include "prompt.hpp"
 
 std::recursive_mutex Prompt::m_mutex;
-std::atomic<Prompt*> Prompt::m_prompt = nullptr;
+std::atomic<Prompt*> Prompt::m_prompt = { 0 };
 
 Prompt::~Prompt() {}
 

@@ -4,7 +4,7 @@
 #include "../../commandLine/options/prompt/prompt.hpp"
 
 std::recursive_mutex ComboBox::m_mutex;
-std::atomic<ComboBox*> ComboBox::m_comboBox = nullptr;
+std::atomic<ComboBox*> ComboBox::m_comboBox = { 0 };
 
 ComboBox::~ComboBox() {}
 

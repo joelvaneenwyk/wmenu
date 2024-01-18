@@ -1,7 +1,7 @@
 #include "font.hpp"
 
 std::recursive_mutex Font::m_mutex;
-std::atomic<Font*> Font::m_font = nullptr;
+std::atomic<Font*> Font::m_font = { 0 };
 
 Font::~Font() {}
 
