@@ -1,7 +1,11 @@
 version: "0.2"
 ignorePaths: []
-dictionaryDefinitions: []
-dictionaries: []
+dictionaryDefinitions:
+  - name: wmenu
+    path: .github/config/wmenu.dict
+    addWords: true
+dictionaries:
+  - wmenu
 words: []
 ignoreWords: []
 import: []
